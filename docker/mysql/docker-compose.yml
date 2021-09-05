@@ -1,0 +1,36 @@
+# references:
+#   https://hub.docker.com/_/mysql
+
+version: "3.7"
+
+services:
+
+    db:
+        image: mysql:8.0
+        container_name: mysql
+        restart: unless-stopped
+        volumes:
+            - mysql-volume:/var/lib/mysql
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - 3306:3306
+        hostname: mysql
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: null
+            MYSQL_RANDOM_ROOT_PASSWORD: null
+            MYSQL_ROOT_PASSWORD: 1
+            MYSQL_DATABASE: default
+            MYSQL_USER: "pedrozc90"
+            MYSQL_PASSWORD: 1
+        networks:
+            - mysql-network
+
+volumes:
+    mysql-volume:
+        name: mysql-volume
+        driver: local
+
+networks:
+    mysql-network:
+        name: mysql-network
+        driver: bridge

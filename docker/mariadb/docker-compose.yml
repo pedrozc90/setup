@@ -1,0 +1,37 @@
+# references:
+#   https://hub.docker.com/_/mariadb
+
+version: "3.7"
+
+services:
+
+    db:
+        image: mariadb:10.6
+        container_name: mariadb
+        restart: unless-stopped
+        volumes:
+            - mariadb-volume:/var/lib/mysql
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - 3306:3306
+        hostname: mariadb
+        environment:
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: null
+            MARIADB_RANDOM_ROOT_PASSWORD: null
+            MARIADB_ROOT_HOST: "maria"
+            MARIADB_ROOT_PASSWORD: 1
+            MARIADB_USER: "pedrozc90"
+            MARIADB_PASSWORD: 1
+            MARIADB_DATABASE: default
+        networks:
+            - mariadb-network
+
+volumes:
+    mariadb-volume:
+        name: mariadb-volume
+        driver: local
+
+networks:
+    mariadb-network:
+        name: mariadb-network
+        driver: bridge
