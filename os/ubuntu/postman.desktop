@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Comment=Postman Native App
+Version=7.24.0
+Exec=/opt/postman/app/Postman %U
+Icon=/opt/postman/app/resources/app/assets/icon.png
+Terminal=false
+StartupNotify=false
+StartupWMClass=Postman
+Type=Application
+Categories=Network;
+OnlyShowIn=Unity;GNOME;
+X-UnityGenerated=true
