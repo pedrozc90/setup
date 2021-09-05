@@ -1,0 +1,57 @@
+
+# references:
+#   https://hub.docker.com/_/postgres
+#   https://github.com/ankane/pghero/blob/master/guides/Query-Stats.md
+
+version: "3.7"
+
+services:
+
+    db:
+        image: postgres:13.4-alpine
+        container_name: postgres
+        restart: unless-stopped
+        volumes:
+            - pgvolume:/var/lib/postgresql/data
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - 5432:5432
+        hostname: postgres
+        environment:
+            POSTGRES_USERNAME: postgres
+            POSTGRES_PASSWORD: 1
+        networks:
+            - pgnetwork
+        command:
+            - "postgres"
+            - "-c"
+            - "shared_preload_libraries=pg_stat_statements"
+            - "-c"
+            - "pg_stat_statements.track=all"
+            - "-c"
+            - "pg_stat_statements.max=10000"
+            - "-c"
+            - "track_activity_query_size=2048"
+
+    db_stats:
+        container_name: pghero
+        image: ankane/pghero
+        restart: unless-stopped
+        ports:
+            - 35066:8080
+        environment:
+            DATABASE_URL: "postgres://postgres:1@postgres:5432/pedrozc90"
+            PGHERO_USERNAME: pghero
+            PGHERO_PASSWORD: 1
+        networks:
+            - pgnetwork
+
+volumes:
+    pgvolume:
+        name: pgvolume
+        driver: local
+
+networks:
+    pgnetwork:
+        name: pgnetwork
+        driver: bridge
