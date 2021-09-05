@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+    db:
+        image: couchdb:2.3.1
+        container_name: couchdb
+        restart: unless-stopped
+        hostname: couchdb
+        environment:
+            COUCHDB_USER: pedrozc90
+            COUCHDB_PASSWORD: 1
+        ports: 
+            - 5984:5894
+            - 6984:6984
+        volumes:
+            - couchdb-data:/opt/couchdb/data
+        networks:
+            - couchdb
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "5"
+
+volumes:
+  couchdb-data:
+    name: couchdb-data
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/test
+
+networks: 
+    couchdb:
+        name: couchdb
+        driver: bridge
