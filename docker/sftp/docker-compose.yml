@@ -1,0 +1,37 @@
+# references:
+#   https://hub.docker.com/r/writl/sftp/
+
+version: "3.7"
+
+services:
+
+    sftp:
+        image: writl/sftp
+        container_name: sftp
+        restart: unless-stopped
+        ports:
+            - "23:22"
+        volumes:
+            - sftpvolume:/data/incoming
+        environment:
+            USER: pedrozc90
+            PASS: xyXvnQs7
+        networks:
+            - sftpnetwork
+
+volumes:
+    sftpvolume:
+        name: sftpvolume
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            # linux
+            # device: $PWD/test
+            # windows
+            device: C:/Users/pedro/Documents/GitHub/setup/docker/sftp/test
+
+networks:
+    sftpnetwork:
+        name: sftpnetwork
+        driver: bridge
