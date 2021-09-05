@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+
+    db:
+        image: mongo:4.4.8
+        container_name: mongodb
+        restart: unless-stopped
+        volumes:
+            - mongodb-data:/data/db
+            - mongodb-config:/data/configdb
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+            - ./mongo-init-2.js:/docker-entrypoint-initdb.d/mongo-init-2.js
+        ports:
+            - 27017-27019:27017-27019
+        hostname: mongodb
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: d3qMgE0W4eBb
+            MONGO_INITDB_DATABASE: default
+            MONGO_NON_ROOT_USERNAME: pedrozc90
+            MONGO_NON_ROOT_PASSWORD: d3qMgE0W4eBb
+        networks:
+            - mongodb-network
+
+volumes:
+    mongodb-config:
+        name: mongodb-config
+        driver: local
+    mongodb-data:
+        name: mongodb-data
+        driver: local
+
+networks:
+    mongodb-network:
+        name: mongodb-network
+        driver: bridge
