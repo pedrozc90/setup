@@ -9,8 +9,8 @@ services:
         volumes:
             - mongodb-data:/data/db
             - mongodb-config:/data/configdb
-            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-            - ./mongo-init-2.js:/docker-entrypoint-initdb.d/mongo-init-2.js
+            # - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+            # - ./mongo-init-2.js:/docker-entrypoint-initdb.d/mongo-init-2.js
         ports:
             - 27017-27019:27017-27019
         hostname: mongodb
