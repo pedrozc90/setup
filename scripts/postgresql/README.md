@@ -4,17 +4,14 @@
 
 ```bash
 # open postgres console
-psql --host "127.0.0.1" \
-    --port "5432" \
-    --username "postgres" \
-    --dbname "pedrozc90"
+psql --host "127.0.0.1" --port "5432" --username "postgres" --dbname "pedrozc90"
 ```
 
 ## Backup
 
 ```bash
 # dump the whole database
-pg_dump --file "/home/database-$(date +%Y-%m-%d-%H-%M-%S).tar" \
+pg_dump --file "/home/database_$(date +%Y-%m-%d-%H-%M-%S).tar" \
         --host "127.0.0.1" \
         --port "5432" \
         --username "postgres" \
@@ -26,8 +23,22 @@ pg_dump --file "/home/database-$(date +%Y-%m-%d-%H-%M-%S).tar" \
 ```
 
 ```bash
+# dump the whole database compressed
+filename="/home/database_$(date +%Y-%m-%d-%H-%M-%S).tar.gz"
+
+pg_dump --host "127.0.0.1" \
+        --port "5432" \
+        --username "postgres" \
+        --verbose \
+        --format=t \
+        --section=pre-data \
+        --section=data \
+        --dbname "database" | gzip -v9 > $filename
+```
+
+```bash
 # dump only specified tables
-pg_dump --file "/home/database-$(date +%Y-%m-%d-%H-%M-%S).tar" \
+pg_dump --file "/home/database_$(date +%Y-%m-%d-%H-%M-%S).tar" \
         --host "127.0.0.1" \
         --port "5432" \
         --username "postgres" \
@@ -53,7 +64,7 @@ pg_restore --host "127.0.0.1" \
         --username "postgres" \
         --dbname "database" \
         --verbose  \
-        "/home/backups/database-$(date +%Y-%m-%d-%H-%M-%S).tar"
+        "/home/backups/database_$(date +%Y-%m-%d-%H-%M-%S).tar"
 ```
 
 ## Run Command
@@ -70,7 +81,8 @@ psql --username "postgres" \
 ## Utilities
 
 ```bash
-dbname=my_database
+role=master
+dbname=master
 
 # drop database if already exists
 psql --username "postgres" --command "drop database if exists \"${dbname}\";"
@@ -79,5 +91,5 @@ psql --username "postgres" --command "drop database if exists \"${dbname}\";"
 psql --username "postgres" --command "create database \"${dbname}\";"
 
 # create required roles
-psql --username "postgres" --command "create role truevueadmin superuser;"
+psql --username "postgres" --command "create role $role superuser;"
 ```
