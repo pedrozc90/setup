@@ -1,0 +1,40 @@
+# references:
+#   https://hub.docker.com/_/rabbitmq
+
+version: "3.7"
+
+services:
+
+    rabbitmq:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: rabbitmq:1.0.0
+        container_name: rabbitmq
+        restart: unless-stopped
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - rabbitmq-volume:/var/lib/rabbitmq
+        environment:
+            RABBITMQ_DEFAULT_USER: pedrozc90
+            RABBITMQ_DEFAULT_PASS: AeYreOty
+            RABBITMQ_DEFAULT_VHOST: master
+        hostname: rabbitmq
+        networks:
+            - rabbitmq-network
+
+volumes:
+    rabbitmq-volume:
+        name: rabbitmq-volume
+        driver: local
+        # driver_opts:
+        #     o: bind
+        #     type: none
+        #     device: C:/Users/pedro/Documents/GitHub/setup/docker/sftp/test
+
+networks:
+    rabbitmq-network:
+        name: rabbitmq-network
+        driver: bridge

@@ -32,3 +32,32 @@ rabbitmqctl list_queues --silent --vhost $VHOST name state messages
 # DELETANDO TODAS AS QUEUES DO VHOST
 for queue in $(rabbitmqctl list_queues --silent --vhost $VHOST name); do rabbitmqctl delete_queue --vhost $VHOST $queue; done
 ```
+
+## [DockerHub](https://hub.docker.com/_/rabbitmq)
+
+```bash
+# create new directory
+mkdir --parents ./data
+
+# create named volume
+docker volume create \
+    --driver local \
+    --opt o=bind \
+    --opt type=none \
+    --opt device=./data \
+    rabbitmq-volume
+
+# run/create container
+docker run --detach \
+    --name rabbitmq \
+    --hostname rabbitmq \
+    --volume rabbitmq-volume:/var/lib/rabbitmq \
+    --publish 5672:5672 \
+    --publish 15672:15672 \
+    --env RABBITMQ_DEFAULT_USER=pedrozc90
+    --env RABBITMQ_DEFAULT_PASS=AeYreOty
+    --env RABBITMQ_DEFAULT_VHOST=master
+    rabbitmq:3.9.13-management-alpine
+```
+
+> Access management interface http://127.0.0.1:15672
