@@ -12,8 +12,9 @@ services:
         container_name: postgres
         restart: unless-stopped
         volumes:
-            - pgvolume:/var/lib/postgresql/data
+            - postgres_data:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./scripts:/home/scripts
         ports:
             - 5432:5432
         hostname: postgres
@@ -21,7 +22,7 @@ services:
             POSTGRES_USERNAME: postgres
             POSTGRES_PASSWORD: 1
         networks:
-            - pgnetwork
+            - postgres_network
         command:
             - "postgres"
             - "-c"
@@ -44,14 +45,14 @@ services:
             PGHERO_USERNAME: pghero
             PGHERO_PASSWORD: 1
         networks:
-            - pgnetwork
+            - postgres_network
 
 volumes:
-    pgvolume:
-        name: pgvolume
+    postgres_data:
+        name: postgres_data
         driver: local
 
 networks:
-    pgnetwork:
-        name: pgnetwork
+    postgres_network:
+        name: postgres_network
         driver: bridge
