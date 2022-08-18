@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+    contare_biro:
+        image: node:10.16
+        container_name: contare_biro
+        volumes:
+            # copy project files into container
+            - .:/usr/src/contare_biro
+        working_dir: /usr/src/contare_biro
+        command: bash -c "npm run build && npm run start"
+        ports:
+            - 8081:8081
+        networks:
+            - contare_biro
+
+networks:
+    contare_biro:
+        name: contare_biro
+        driver: bridge

@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+
+    front_bureau:
+        image: node:10.16
+        container_name: front_bureau
+        volumes:
+            # copy project files into container
+            - .:/usr/src/front_bureau
+        working_dir: /usr/src/front_bureau
+        command: bash -c "npm run build && npm run deploy:prod"
+        ports:
+            - 8081:8081
+        networks:
+            - frontend
+
+networks:
+    frontend:
+        name: frontend
+        driver: bridge
+        external: true
