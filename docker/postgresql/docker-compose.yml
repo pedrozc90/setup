@@ -1,6 +1,7 @@
 
 # references:
 #   https://hub.docker.com/_/postgres
+#   https://hub.docker.com/r/ankane/pghero
 #   https://github.com/ankane/pghero/blob/master/guides/Query-Stats.md
 
 version: "3.7"
@@ -8,19 +9,19 @@ version: "3.7"
 services:
 
     db:
-        image: postgres:13.4-alpine
+        image: postgres:14.5-alpine
         container_name: postgres
         restart: unless-stopped
         volumes:
             - postgres_data:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-            - ./scripts:/home/scripts
+            # - ./scripts:/home/scripts
         ports:
             - 5432:5432
         hostname: postgres
         environment:
             POSTGRES_USERNAME: postgres
-            POSTGRES_PASSWORD: 1
+            POSTGRES_PASSWORD: postgres
         networks:
             - postgres_network
         command:
@@ -36,16 +37,18 @@ services:
 
     db_stats:
         container_name: pghero
-        image: ankane/pghero
+        image: ankane/pghero:v2.8.3
         restart: unless-stopped
         ports:
             - 35066:8080
         environment:
             DATABASE_URL: "postgres://postgres:1@postgres:5432/pedrozc90"
             PGHERO_USERNAME: pghero
-            PGHERO_PASSWORD: 1
+            PGHERO_PASSWORD: pghero
         networks:
             - postgres_network
+        depends_on:
+            - db
 
 volumes:
     postgres_data:
