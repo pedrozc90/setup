@@ -5,23 +5,26 @@ filename=$2
 role="pedrozc90"
 
 if [[ -z $dbname ]]; then
-	echo "Database name not defined!"
+	echo "database name not defined!"
     exit
 fi
 
 if [[ -z $filename ]]; then
-    echo "No dump file $filename found."
+    echo "no dump file $filename found."
     exit
 fi
 
 # drop database if already exists
-psql --username "postgres" --command "drop database if exists \"${dbname}\";"
+psql --username "postgres" --command "DROP DATABASE IF EXISTS \"${dbname}\";"
 
 # create a new database
-psql --username "postgres" --command "create database \"${dbname}\";"
+psql --username "postgres" --command "CREATE DATABASE \"${dbname}\";"
 
 # create required roles
-psql --username "postgres" --command "create role $role superuser;"
+psql --username "postgres" --command "CREATE ROLE $role superuser;"
+
+# enabled pg_stat_statements (required by 'pghero')
+psql --username "postgres" --command "CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"
 
 start_time=$(date +%s)
 

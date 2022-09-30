@@ -38,6 +38,30 @@ docker system prune --all --volumes
 docker system prune --volumes
 ```
 
+## Volumes
+
+```bash
+# create named volume
+$VOLUME_NAME=my_volume
+
+docker volume create my_volume
+```
+
+```bash
+# creating mapped volume
+$VOLUME_NAME=my_volume
+$DIR_PATH=/path/to/folder
+
+mkdir -p ${DIR_PATH}
+
+docker volume create \
+    --driver local \
+    --opt o=bind \
+    --opt type=none \
+    --opt device=${DIR_PATH} \
+    ${VOLUME_NAME}
+```
+
 ## Docker Compose
 
 ```bash

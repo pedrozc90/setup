@@ -1,8 +1,9 @@
 #!/bin/bash
 
 dbname=$1
+
 if [[ -z $dbname ]]; then
-	echo "Database name not defined!"
+	echo "database name not defined!"
     exit
 fi
 
