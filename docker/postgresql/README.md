@@ -1,5 +1,9 @@
 # [PostgreSQL](https://www.postgresql.org/)
 
+## References
+
+-   [Tuning PostgreSQL with pgbench](https://www.cloudbees.com/blog/tuning-postgresql-with-pgbench)
+
 ## Tunning
 
 > postgres.conf
