@@ -1,0 +1,13 @@
+# references
+# watchtower cofiguration: https://containrrr.dev/watchtower/arguments/#head_failure_warnings
+
+version: "3.8"
+
+services:
+    watchtower:
+        image: containrrr/watchtower:1.4.0
+        container_name: watchtower
+        hostname: watchtower
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        command: --debug --cleanup --label-enable --schedule "0 30 * * * *"
