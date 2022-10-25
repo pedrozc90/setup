@@ -4,7 +4,7 @@
 #   https://hub.docker.com/r/ankane/pghero
 #   https://github.com/ankane/pghero/blob/master/guides/Query-Stats.md
 
-version: "3.7"
+version: "3.8"
 
 services:
 
@@ -13,12 +13,14 @@ services:
         container_name: postgres
         restart: unless-stopped
         volumes:
-            - postgres_data:/var/lib/postgresql/data
+            - postgres_volume:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
             # - ./scripts:/home/scripts
         ports:
             - 5432:5432
         hostname: postgres
+        labels:
+            - com.centurylinklabs.watchtower.enable="false"
         environment:
             POSTGRES_USERNAME: postgres
             POSTGRES_PASSWORD: postgres
@@ -27,31 +29,31 @@ services:
         command:
             - "postgres"
             - "-c"
-            - "shared_preload_libraries = 'pg_stat_statements'"
+            - "shared_preload_libraries=pg_stat_statements"
             - "-c"
-            - "compute_query_id = on"
+            - "compute_query_id=on"
             - "-c"
-            - "pg_stat_statements.track = all"
+            - "pg_stat_statements.track=all"
             - "-c"
-            - "pg_stat_statements.max = 10000"
+            - "pg_stat_statements.max=10000"
             - "-c"
-            - "track_activity_query_size = 2048"
+            - "track_activity_query_size=2048"
             - "-c"
-            - "log_checkpoints = on"
+            - "log_checkpoints=on"
             - "-c"
-            - "log_connections = on"
+            - "log_connections=on"
             - "-c"
-            - "log_disconnections = on"
+            - "log_disconnections=on"
             - "-c"
-            - "log_lock_waits = on"
+            - "log_lock_waits=on"
             - "-c"
-            - "log_temp_files = 0"
+            - "log_temp_files=0"
             - "-c"
-            - "log_min_duration_statement = 0"
+            - "log_min_duration_statement=0"
             - "-c"
-            - "log_autovacuum_min_duration = 0"
+            - "log_autovacuum_min_duration=0"
             - "-c"
-            - "log_line_prefix = '%t [%p]: [%l] %quser=%u,db=%d,app=%a,client=%h '"
+            - "log_line_prefix='%t [%p]: [%l] %quser=%u,db=%d,app=%a,client=%h '"
 
     db_stats:
         container_name: pghero
@@ -63,14 +65,16 @@ services:
             DATABASE_URL: "postgres://postgres:1@postgres:5432/pedrozc90"
             PGHERO_USERNAME: pghero
             PGHERO_PASSWORD: pghero
+        labels:
+            - com.centurylinklabs.watchtower.enable="false"
         networks:
             - postgres_network
         depends_on:
             - db
 
 volumes:
-    postgres_data:
-        name: postgres_data
+    postgres_volume:
+        name: postgres_volume
         driver: local
 
 networks:
