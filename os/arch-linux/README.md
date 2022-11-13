@@ -148,9 +148,22 @@ echo 127.0.1.1	myhostname.localdomain	myhostname >> /etc/hosts
 
 ```sh
 # install linux kernel
-pacman -S linux linux-headers linux-lts linux-lts-headers \
-    sudo nano openssh dialog \
-    networkmanager wpa_supplicant wireless_tools netctl
+pacman -S --needed \
+    base \
+    linux \
+    linux-headers \
+    linux-firmware \
+    sudo \
+    nano \
+    openssh \
+    dialog \
+    networkmanager \
+    wpa_supplicant \
+    wireless_tools \
+    netctl
+
+# install linux lts (optional)
+pacman -S linux-lts linux-lts-headers
 
 # eanble openssh on startup
 systemctl enable sshd.service
@@ -165,7 +178,7 @@ systemctl enable NetworkManager
 # create a new initramfs
 mkinitcpio -p linux
 
-# create a new initramfs for lts
+# create a new initramfs for lts (optional)
 mkinitcpio -p linux-lts
 ```
 
@@ -248,20 +261,29 @@ lspci | grep VGA
 pacman -S xf86-video-amdgpu
 
 # install gnome optional packages
-pacman -S gdm \
+pacman -S --needed \
+    gdm \
     gedit \
     gnome-backgrounds \
     gnome-calculator \
+    gnome-calendar \
+    gnome-characters \
+    gnome-clocks \
+    gnome-console \
     gnome-control-center \
+    gnome-firmware \
     gnome-keyring \
+    gnome-logs \
     gnome-settings-daemon \
     gnome-shell \
     gnome-shell-extensions \
     gnome-terminal \
+    gnome-text-editor \
     gnome-tweaks \
+    gnome-weather \
     nautilus \
+    neofetch \
     xdg-user-dirs
-    # adwaita-icon-theme
 
 # enable gdm on startup
 systemctl enable gdm
