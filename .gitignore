@@ -1,3 +1,7 @@
 # IDE's files
 .idea
 .vscode
+
+# files
+*.jar
+*.zip
