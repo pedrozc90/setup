@@ -3,5 +3,6 @@
 .vscode
 
 # files
+*.iml
 *.jar
 *.zip
