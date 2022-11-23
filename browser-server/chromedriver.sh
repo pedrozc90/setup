@@ -19,22 +19,29 @@ if [ -z $CHROME_VERSION ]; then
 	sudo dpkg -i google-chrome-stable_current_amd64.deb
 fi
 
-CHROMEDRIVER_VERSION=108.0.5359.22
-# CHROMEDRIVER_VERSION=107.0.5304.62
+# CHROMEDRIVER_VERSION=108.0.5359.22
+CHROMEDRIVER_VERSION=107.0.5304.62
 # CHROMEDRIVER_VERSION=106.0.5249.61
 CHROMEDRIVER_DIR="/usr/bin/chromedriver"
+CHROMEDRIVER_FILENAME="chromedriver_linux64.zip"
+
+if [ -f "$PWD/$CHROMEDRIVER_FILENAME" ]; then
+	rm -v "$PWD/$CHROMEDRIVER_FILENAME"
+fi
 
 # download chromedriver for linux
-wget "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+wget "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/$CHROMEDRIVER_FILENAME"
 
 # remove old chromedriver, if exists
-rm -vf $CHROMEDRIVER_DIR
+if [ -d $CHROMEDRIVER_DIR ]; then
+	rm -rf $CHROMEDRIVER_DIR
+fi
 
 # extract files
-unzip chromedriver_linux64.zip -d /usr/bin
+unzip "$PWD/$CHROMEDRIVER_FILENAME" -d /usr/bin
 
 sudo chown root:root $CHROMEDRIVER_DIR
 sudo chmod +x $CHROMEDRIVER_DIR
 
-rm -vf "${PWD}/chromedriver_linux64.zip"
+rm -vf "${PWD}/$CHROMEDRIVER_FILENAME"
 rm -vf "${PWD}/google-chrome-stable_current_amd64.deb"
