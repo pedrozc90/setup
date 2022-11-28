@@ -1,10 +1,4 @@
-
-# references:
-#   https://hub.docker.com/_/postgres
-#   https://hub.docker.com/r/ankane/pghero
-#   https://github.com/ankane/pghero/blob/master/guides/Query-Stats.md
-
-version: "3.8"
+version: "3.9"
 
 services:
 

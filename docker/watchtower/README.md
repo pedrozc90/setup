@@ -5,3 +5,4 @@
 -   [DockerHub](https://hub.docker.com/r/containrrr/watchtower)
 
 -   [Digital Ocean Post](https://www.digitalocean.com/community/tutorials/how-to-automatically-update-docker-container-images-with-watchtower-on-ubuntu-22-04)
+-   [Cofiguration](https://containrrr.dev/watchtower/arguments/#head_failure_warnings)

@@ -1,7 +1,4 @@
-# references
-# watchtower cofiguration: https://containrrr.dev/watchtower/arguments/#head_failure_warnings
-
-version: "3.8"
+version: "3.9"
 
 services:
     watchtower:
