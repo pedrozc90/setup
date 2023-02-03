@@ -144,7 +144,7 @@ echo ::1		localhost >> /etc/hosts
 echo 127.0.1.1	myhostname.localdomain	myhostname >> /etc/hosts
 ```
 
-# Install Packages
+## Install Packages
 
 ```sh
 # install linux kernel
@@ -172,7 +172,7 @@ systemctl enable sshd.service
 systemctl enable NetworkManager
 ```
 
-# initramfs
+## initramfs
 
 ```sh
 # create a new initramfs
@@ -182,7 +182,7 @@ mkinitcpio -p linux
 mkinitcpio -p linux-lts
 ```
 
-# SuperUser
+## SuperUser
 
 ```sh
 # change super user password
@@ -201,7 +201,7 @@ EDITOR=nano visudo
 
 > password: arch
 
-# Boot Loader
+## Boot Loader
 
 ```sh
 # install required packages
@@ -221,7 +221,7 @@ cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-# Swap File (Optional)
+## Swap File (Optional)
 
 > optional: replace for swap partition
 
@@ -242,7 +242,7 @@ cp /etc/fstab /stc/fstab.bak
 echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 ```
 
-# Extra Packages
+## Extra Packages
 
 ```sh
 # update packages
@@ -289,7 +289,7 @@ pacman -S --needed \
 systemctl enable gdm
 ```
 
-# Done
+## Done
 
 ```sh
 # exit terminal
@@ -297,4 +297,114 @@ exit
 
 # dismount
 umount --all
+```
+
+## Apps
+
+
+### Git
+
+```bash
+sudo pacman -S git
+
+git config --global user.name "pedrozc90"
+git config --global user.email "pedrozc90@gmail.com"
+```
+
+### Paru
+
+```bash
+# install 'paru'
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+```
+
+### Google Chrome
+
+```bash
+paru -S google-chrome firefox vscode postman
+```
+
+### Flatpak
+
+```bash
+sudo pacman -S flatpak
+```
+
+### [ASDF](https://asdf-vm.com/)
+
+```bash
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
+
+echo -e "\n# asdf copnfiguration" >> ~/.bashrc
+echo -e "\n. \"$HOME/.asdf/asdf.sh\"" >> ~/.bashrc
+echo -e "\n. \"$HOME/.asdf/completions/asdf.bash\"" >> ~/.bashrc
+
+source ~/.bashrc
+```
+
+```bash
+# install nodejs
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf install nodejs latest
+asdf install nodejs 10.24.1
+asdf global nodejs latest
+
+# install java
+asdf plugin add java https://github.com/halcyon/asdf-java.git
+asdf install java 8
+asdf install java adopt-openjdk-12.0.2+10.2
+asdf global java adopt-openjdk-12.0.2+10.2
+
+echo -e "\n. ~/.asdf/plugins/java/set-java-home.bash" >> ~/.bashrc
+
+# install lua
+asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
+asdf install lua 5.3.2
+asdf global lua 5.3.2
+
+# install elixir
+asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
+```
+
+### [Elixir](https://elixir-lang.org/)
+
+```bash
+sudo pacman -S elixir
+
+elixir --version
+```
+
+### [Rust](https://www.rust-lang.org/)
+
+```bash
+curl https://sh.rustup.rs -sSf | sh
+
+cargo --version
+```
+
+### IntellJ
+
+```bash
+# variables
+IDEA_HOME="/opt/idea"
+
+# download intellij installer
+wget "https://download.jetbrains.com/idea/ideaIU-2020.1.1.tar.gz" --verbose --output-document="$HOME/Downloads/ideaIU-2020.1.1.tar.gz"
+
+# create idea directory if not exists
+if [ ! -d "$IDEA_HOME" ]; then
+    sudo mkdir "$IDEA_HOME"
+fi;
+
+# extract intellij into /opt directory
+sudo tar -zxvf "$HOME/Downloads/ideaIU-2020.1.1.tar.gz" -C "$IDEA_HOME" --strip-components 1
+
+# edit permissions
+sudo chmod 777 "$IDEA_HOME"
+
+# run intellij
+sh "$IDEA_HOME/bin/idea.sh"
 ```
