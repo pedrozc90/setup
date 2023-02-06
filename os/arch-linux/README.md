@@ -73,14 +73,13 @@ swapon /dev/swap_partition
 mount /dev/root_partition /mnt
 
 # create directories
-mkdir /mnt/home
-mkdir /mnt/etc
-mkdir /mnt/boot
-mkdir /mnt/boot/EFI
+mkdir -v /mnt/home
+mkdir -v /mnt/etc
+mkdir -vp /mnt/boot/efi
 
 # mount home partition
 mount /dev/home_partition /mnt/home
-mount /dev/efi_partition /mnt/boot/EFI
+mount /dev/efi_partition /mnt/boot/efi
 
 # generate fstab file
 genfstab -U -p /mnt >> /mnt/etc/fstab
@@ -324,7 +323,7 @@ makepkg -si
 ### Google Chrome
 
 ```bash
-paru -S google-chrome firefox vscode postman
+paru -S google-chrome firefox visual-studio-code-bin postman
 ```
 
 ### Flatpak
@@ -339,8 +338,8 @@ sudo pacman -S flatpak
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
 
 echo -e "\n# asdf copnfiguration" >> ~/.bashrc
-echo -e "\n. \"$HOME/.asdf/asdf.sh\"" >> ~/.bashrc
-echo -e "\n. \"$HOME/.asdf/completions/asdf.bash\"" >> ~/.bashrc
+echo ". \"$HOME/.asdf/asdf.sh\"" >> ~/.bashrc
+echo ". \"$HOME/.asdf/completions/asdf.bash\"" >> ~/.bashrc
 
 source ~/.bashrc
 ```
@@ -348,22 +347,22 @@ source ~/.bashrc
 ```bash
 # install nodejs
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs latest
 asdf install nodejs 10.24.1
-asdf global nodejs latest
+asdf install nodejs 18.14.0
+asdf global nodejs 18.14.0
 
 # install java
 asdf plugin add java https://github.com/halcyon/asdf-java.git
-asdf install java 8
-asdf install java adopt-openjdk-12.0.2+10.2
-asdf global java adopt-openjdk-12.0.2+10.2
+asdf install java adoptopenjdk-8.0.362+9
+asdf install java adoptopenjdk-17.0.6+10
+asdf global java adoptopenjdk-17.0.6+10
 
-echo -e "\n. ~/.asdf/plugins/java/set-java-home.bash" >> ~/.bashrc
+echo ". ~/.asdf/plugins/java/set-java-home.bash" >> ~/.bashrc
 
 # install lua
 asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
-asdf install lua 5.3.2
-asdf global lua 5.3.2
+asdf install lua 5.4.4
+asdf global lua 5.4.4
 
 # install elixir
 asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
