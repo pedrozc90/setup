@@ -38,3 +38,15 @@ Roadmap of windows instllation to get my computer ready for development
     -   [Google Drive](https://www.google.com/drive/download/)
     -   [Razer Synapse v2](https://www.razer.com/synapse-2)
     -   [Razer Synapse v3](https://www.razer.com/synapse-3)
+
+## Fix PowerShell Script Policy
+
+```ps1
+# list all execution policies
+Get-ExecutionPolicy -List
+```
+
+```ps1
+# chnage current user execution policy
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
