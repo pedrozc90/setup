@@ -55,3 +55,38 @@ git config --global fetch.prune true
 ```bash
 git ls-files --others --exclude-standard -z | xargs -0 tar rvf ~/backup-untracked.zip
 ```
+
+## SubModules
+
+```bash
+git submodule add --branch <branch_name> <repository_url> <path>
+```
+
+```bash
+# Clone the Tukui repository and its submodules
+git clone --recursive https://github.com/your_username/Tukui.git
+
+# If you already cloned without the --recursive flag, or need to update submodules:
+cd Tukui
+git submodule update --init --recursive
+```
+
+```bash
+# Navigate to the Submodule
+cd Tukui/Libs/oUF_Retail
+
+# List Remote Branches
+git branch -r
+
+# Checkout the "retail" Branch
+git checkout -b retail origin/retail
+
+git pull origin retail
+```
+
+```bash
+cd ../../..
+git add Tukui/Libs/oUF_Retail
+git commit -m "Update oUF submodule to the latest version on the retail branch"
+git push origin master
+```
