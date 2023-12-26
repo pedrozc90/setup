@@ -10,13 +10,16 @@ $FILGER_DIR = "$GITHUB_DIR\Filger"
 $OUF_LUA_DIR = "$GITHUB_DIR\oUF_Lua"
 $JASJE_UI_DIR = "$GITHUB_DIR\JasjeUI"
 
+# New-Item -ItemType SymbolicLink -Path "C:\Users\pedro\github\Tukui\Tukui\Libs\oUF_Test" -Target "C:\Users\pedro\github\oUF" -Force
+# New-Item -ItemType SymbolicLink -Path "$TUKUI_DIR\Libs\oUF_Test" -Target "$GITHUB_DIR\oUF" -Force
+
 $RETAIL_DIR = "$WOW_DIR\_retail_"
 if (Test-Path $RETAIL_DIR) {
     $ADDONS_DIR = "$RETAIL_DIR\Interface\AddOns"
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
+    # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\JasjeUI" -Target "$JASJE_UI_DIR" -Force
 }
 
@@ -34,7 +37,7 @@ if (Test-Path $CLASSIC_ERA_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
+    # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
 }
 
 $CLASSIC_ERA_DIR = "$WOW_DIR\_classic_ptr_"
@@ -43,7 +46,7 @@ if (Test-Path $CLASSIC_ERA_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
+    # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
 }
 
 # CLASSIC WRATH PTR

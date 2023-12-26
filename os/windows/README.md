@@ -50,3 +50,24 @@ Get-ExecutionPolicy -List
 # chnage current user execution policy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
+
+## WSL
+
+### Update System
+
+```bash
+# update wsl to pre-release version to enable experimental configurations
+wsl --update --pre-release
+```
+
+### Update `.wslconfig` file
+
+```text
+[wsl2]
+# localhostForwarding=true
+# kernelCommandLine=ipv6.disable=1
+[experimental]
+autoMemoryReclaim=gradual
+networkingMode=mirrored
+dnsTunneling=true
+```
