@@ -13,8 +13,8 @@ services:
         environment:
             USER: pedrozc90
             PASS: xyXvnQs7
-        networks:
-            - sftpnetwork
+        # networks:
+        #     - sftpnetwork
 
 volumes:
     sftpvolume:
@@ -23,12 +23,17 @@ volumes:
         driver_opts:
             o: bind
             type: none
-            # linux
-            # device: $PWD/test
-            # windows
-            device: C:/Users/pedro/Documents/GitHub/setup/docker/sftp/test
+            device: ~/.sftp
+    # windows
+    # sftpvolume:
+    #     name: sftpvolume
+    #     driver: local
+    #     driver_opts:
+    #         o: bind
+    #         type: none
+    #         device: C:/Users/pedro/Documents/GitHub/setup/docker/sftp/test
 
-networks:
-    sftpnetwork:
-        name: sftpnetwork
-        driver: bridge
+# networks:
+#     sftp_network:
+#         name: sftp_network
+#         driver: bridge
