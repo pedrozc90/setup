@@ -7,8 +7,9 @@ $GITHUB_DIR = "C:\Users\$env:USERNAME\github"
 $TUKUI_DIR = "$GITHUB_DIR\Tukui\Tukui"
 $LUAUI_DIR = "$GITHUB_DIR\LuaUI"
 $FILGER_DIR = "$GITHUB_DIR\Filger"
-$OUF_LUA_DIR = "$GITHUB_DIR\oUF_Lua"
-$JASJE_UI_DIR = "$GITHUB_DIR\JasjeUI"
+$TOOLTIP_DIR = "$GITHUB_DIR\tooltips"
+# $JASJE_UI_DIR = "$GITHUB_DIR\JasjeUI"
+# $OUF_LUA_DIR = "$GITHUB_DIR\oUF_Lua"
 
 # New-Item -ItemType SymbolicLink -Path "C:\Users\pedro\github\Tukui\Tukui\Libs\oUF_Test" -Target "C:\Users\pedro\github\oUF" -Force
 # New-Item -ItemType SymbolicLink -Path "$TUKUI_DIR\Libs\oUF_Test" -Target "$GITHUB_DIR\oUF" -Force
@@ -19,8 +20,9 @@ if (Test-Path $RETAIL_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
+    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\tooltips" -Target "$TOOLTIP_DIR" -Force
+    # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\JasjeUI" -Target "$JASJE_UI_DIR" -Force
     # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\JasjeUI" -Target "$JASJE_UI_DIR" -Force
 }
 
 $CLASSIC_DIR = "$WOW_DIR\_classic_"
@@ -29,6 +31,7 @@ if (Test-Path $CLASSIC_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
+    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\tooltips" -Target "$TOOLTIP_DIR" -Force
 }
 
 $CLASSIC_ERA_DIR = "$WOW_DIR\_classic_era_"
@@ -37,6 +40,7 @@ if (Test-Path $CLASSIC_ERA_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
+    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\tooltips" -Target "$TOOLTIP_DIR" -Force
     # New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\oUF_Lua" -Target "$OUF_LUA_DIR" -Force
 }
 
