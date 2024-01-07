@@ -47,7 +47,7 @@ Get-ExecutionPolicy -List
 ```
 
 ```ps1
-# chnage current user execution policy
+# change current user execution policy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
