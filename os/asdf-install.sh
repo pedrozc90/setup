@@ -23,13 +23,15 @@ asdf global nodejs 20.10.0
 
 # install java
 asdf plugin add java https://github.com/halcyon/asdf-java.git
-asdf install java adoptopenjdk-8.0.362+9
-asdf install java adoptopenjdk-17.0.6+10
-asdf global java adoptopenjdk-17.0.6+10
+asdf install java adoptopenjdk-8.0.392+8
+asdf install java adoptopenjdk-11.0.21+9
+asdf install java adoptopenjdk-17.0.9+9
+asdf global java adoptopenjdk-17.0.9+9
 
 echo ". ~/.asdf/plugins/java/set-java-home.bash" >> ~/.bashrc
 
-source ~/.bashrc
+# install graalvm
+asdf plugin add graalvm https://github.com/asdf-community/asdf-graalvm.git
 
 # install lua
 asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
@@ -38,3 +40,6 @@ asdf global lua 5.4.6
 
 # install elixir
 asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
+
+# reload environment variables
+source ~/.bashrc
