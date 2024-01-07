@@ -2,10 +2,10 @@
 
 # variables
 IDEA_HOME="/opt/idea"
-IDEA_FILE="ideaIU-2022.3.2.tar.gz"
+IDEA_FILE="ideaIU-2023.3.2-aarch64.tar.gz"
 
 # download intellij installer
-# wget "https://download.jetbrains.com/idea/$IDEA_FILE" --verbose --output-document="$HOME/Downloads/$IDEA_FILE"
+wget "https://download.jetbrains.com/idea/$IDEA_FILE" --verbose --output-document="$HOME/Downloads/$IDEA_FILE"
 
 # # create idea directory if not exists
 if [ ! -d "$IDEA_HOME" ]; then

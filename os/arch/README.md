@@ -9,7 +9,7 @@
 ls /sys/firmware/efi/efivars
 ```
 
-> if nor files are displayed, you are using BIOS legacy boot mode.
+> if no files are displayed, you are using BIOS legacy boot mode.
 
 ## Verify Internet Connection
 
@@ -299,7 +299,6 @@ umount --all
 ```
 
 ## Apps
-
 
 ### Git
 

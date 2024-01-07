@@ -5,7 +5,7 @@
 # --------------------------------------------------
 
 # clone asdf repository
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.0
 
 # append to ~/.bashrc
 echo -e "\n# asdf configurations" >> ~/.bashrc
@@ -18,8 +18,8 @@ source ~/.bashrc
 # install nodejs
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf install nodejs 10.24.1
-asdf install nodejs 18.14.0
-asdf global nodejs 18.14.0
+asdf install nodejs 20.10.0
+asdf global nodejs 20.10.0
 
 # install java
 asdf plugin add java https://github.com/halcyon/asdf-java.git
@@ -33,8 +33,8 @@ source ~/.bashrc
 
 # install lua
 asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
-asdf install lua 5.4.4
-asdf global lua 5.4.4
+asdf install lua 5.4.6
+asdf global lua 5.4.6
 
 # install elixir
 asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
