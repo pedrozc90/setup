@@ -17,21 +17,21 @@ source ~/.bashrc
 
 # install nodejs
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs 10.24.1
-asdf install nodejs 20.10.0
-asdf global nodejs 20.10.0
+asdf install nodejs 10.24.1 \
+&& asdf install nodejs 20.10.0 \
+&& asdf global nodejs 20.10.0
 
 # install java
 asdf plugin add java https://github.com/halcyon/asdf-java.git
-asdf install java adoptopenjdk-8.0.392+8
-asdf install java adoptopenjdk-11.0.21+9
-asdf install java adoptopenjdk-17.0.9+9
-asdf global java adoptopenjdk-17.0.9+9
+asdf install java temurin-8.0.392+8 \
+&& asdf install java temurin-11.0.21+9 \
+&& asdf install java temurin-17.0.9+9 \
+&& asdf global java temurin-11.0.21+9
 
-echo ". ~/.asdf/plugins/java/set-java-home.bash" >> ~/.bashrc
+echo ". \"$HOME/.asdf/plugins/java/set-java-home.bash\"" >> ~/.bashrc
 
 # install graalvm
-asdf plugin add graalvm https://github.com/asdf-community/asdf-graalvm.git
+# asdf plugin add graalvm https://github.com/asdf-community/asdf-graalvm.git
 
 # install lua
 asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
