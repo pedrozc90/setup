@@ -1,0 +1,24 @@
+services:
+    db:
+        image: amazon/dynamodb-local:2.4.0
+        restart: unless-stopped
+        container_name: dynamodb
+        ports:
+            - "8000:8000"
+        volumes:
+            - dynamodb_data:/home/dynamodblocal/data
+        working_dir: /home/dynamodblocal
+        hostname: dynamodb
+        networks:
+            - dynamodb_network
+        command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+
+volumes:
+    dynamodb_data:
+        name: dynamodb_data
+        driver: local
+
+networks:
+    dynamodb_network:
+        name: dynamodb_network
+        driver: bridge

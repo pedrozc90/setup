@@ -3,6 +3,7 @@
 ## References
 
 -   [Dockerfile Documentation](https://docs.docker.com/engine/reference/builder/)
+-   [Multi platform builds](https://www.docker.com/blog/faster-multi-platform-builds-dockerfile-cross-compilation-guide/)
 
 ## Commands
 
