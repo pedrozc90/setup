@@ -6,6 +6,7 @@ $GITHUB_DIR = "C:\Users\$env:USERNAME\Documents\GitHub"
 $TUKUI_DIR = "$GITHUB_DIR\Tukui\Tukui"
 $LUAUI_DIR = "$GITHUB_DIR\LuaUI"
 $FILGER_DIR = "$GITHUB_DIR\Filger"
+$TAINTED_DIR = "$GITHUB_DIR\Tainted"
 
 $RETAIL_DIR = "$WOW_DIR\_retail_"
 if (Test-Path $RETAIL_DIR) {
@@ -13,6 +14,7 @@ if (Test-Path $RETAIL_DIR) {
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
+    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_DIR" -Force
 }
 
 $CLASSIC_ERA_DIR = "$WOW_DIR\_classic_era_"
