@@ -21,6 +21,8 @@ asdf install nodejs 10.24.1 \
 && asdf install nodejs 20.10.0 \
 && asdf global nodejs 20.10.0
 
+npx npm-check-updates
+
 # install java
 asdf plugin add java https://github.com/halcyon/asdf-java.git
 asdf install java temurin-8.0.392+8 \
