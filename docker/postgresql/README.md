@@ -169,3 +169,24 @@ SELECT * FROM t WHERE t.inserted_at < current_timestamp - interval '3 days';
 ```sql
 SELECT * FROM t WHERE t.name NOT IN (SELECT ...);
 ```
+
+## PgHero
+
+```yaml
+db_stats:
+    container_name: pghero
+    image: ankane/pghero:v2.8.3
+    restart: unless-stopped
+    ports:
+        - 35066:8080
+    environment:
+        DATABASE_URL: "postgres://postgres:1@postgres:5432/pedrozc90"
+        PGHERO_USERNAME: pghero
+        PGHERO_PASSWORD: pghero
+    labels:
+        - com.centurylinklabs.watchtower.enable="false"
+    networks:
+        - postgres_network
+    depends_on:
+        - db
+```
