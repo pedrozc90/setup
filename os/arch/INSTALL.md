@@ -19,7 +19,7 @@ ip addr show
 ping -c 5 www.archlinux.org
 ```
 
-3. Run ARch Linux Install Script
+3. Run Arch Linux Install Script
 
 ```bash
 archinstall

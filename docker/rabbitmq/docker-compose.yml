@@ -3,31 +3,28 @@ version: "3.9"
 services:
 
     rabbitmq:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: rabbitmq:1.0.0
+        image: rabbitmq:4.1.0-management-alpine
         container_name: rabbitmq
         hostname: rabbitmq
         restart: unless-stopped
         ports:
-            - "5672:5672"
-            - "15672:15672"
+            - "5672:5672"     # AMQP protocol port
+            - "15672:15672"   # HTTP UI (Management plugin)
         volumes:
-            - rabbitmq-volume:/var/lib/rabbitmq
+            - rabbitmq_data:/var/lib/rabbitmq
         environment:
-            RABBITMQ_DEFAULT_USER: pedrozc90
-            RABBITMQ_DEFAULT_PASS: AeYreOty
-            RABBITMQ_DEFAULT_VHOST: master
+            RABBITMQ_DEFAULT_USER: rabbitmq
+            RABBITMQ_DEFAULT_PASS: rabbitmq
+            # RABBITMQ_DEFAULT_VHOST: master
         networks:
-            - rabbitmq-network
+            - rabbitmq_network
 
 volumes:
-    rabbitmq-volume:
-        name: rabbitmq-volume
+    rabbitmq_data:
+        name: rabbitmq_data
         driver: local
 
 networks:
-    rabbitmq-network:
-        name: rabbitmq-network
+    rabbitmq_network:
+        name: rabbitmq_network
         driver: bridge
