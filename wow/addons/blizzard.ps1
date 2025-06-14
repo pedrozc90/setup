@@ -1,59 +1,76 @@
 # https://www.undocumented-features.com/2022/03/03/creating-a-symlink-on-windows-11/
 
+# enable script run
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
 $WOW_DIR = "C:\Blizzard\World of Warcraft"
-$GITHUB_DIR = "C:\Users\$env:USERNAME\Documents\GitHub"
+$GITHUB_DIR = "C:\Users\$env:USERNAME\Documents\github"
 
-$TUKUI_DIR = "$GITHUB_DIR\Tukui\Tukui"
-$LUAUI_DIR = "$GITHUB_DIR\LuaUI"
-$FILGER_DIR = "$GITHUB_DIR\Filger"
-$TAINTED_DIR = "$GITHUB_DIR\Tainted"
-$TAINTED_CLASSIC_DIR = "$GITHUB_DIR\Tainted_Classic"
-
-$RETAIL_DIR = "$WOW_DIR\_retail_"
-if (Test-Path $RETAIL_DIR) {
-    $ADDONS_DIR = "$RETAIL_DIR\Interface\AddOns"
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui\retail" -Target "$TUKUI_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\combatlog" -Target "$GITHUB_DIR\combatlogcp" -Force
+# --- Root directory checks ---
+if (-not (Test-Path $WOW_DIR)) {
+    Write-Host "ERROR: World of Warcraft directory not found: $WOW_DIR" -ForegroundColor Red
+    exit 1
 }
 
-$CLASSIC_ERA_DIR = "$WOW_DIR\_classic_era_"
-if (Test-Path $CLASSIC_ERA_DIR) {
-    $ADDONS_DIR = "$CLASSIC_ERA_DIR\Interface\AddOns"
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui\retail" -Target "$TUKUI_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-    New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_CLASSIC_DIR" -Force
+if (-not (Test-Path $GITHUB_DIR)) {
+    Write-Host "ERROR: GitHub directory not found: $GITHUB_DIR" -ForegroundColor Red
+    exit 1
 }
 
-# $PTR_DIR = "$WOW_DIR\_ptr_"
-# if (Test-Path $PTR_DIR) {
-#     $ADDONS_DIR = "$PTR_DIR\Interface\AddOns"
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_DIR" -Force
-# }
+# --- Addon definitions ---
+$Addons = @{
+    "Tainted"      = "$GITHUB_DIR\Tainted"
+    "Filger"       = "$GITHUB_DIR\Filger"
+    # "Tukui\retail" = "$GITHUB_DIR\Tukui\Tukui"
+    # "LuaUI"        = "$GITHUB_DIR\LuaUI"
+    # "combatlog"    = "$GITHUB_DIR\combatlogcp"
+}
 
-# $XPTR_DIR = "$WOW_DIR\_xptr_"
-# if (Test-Path $XPTR_DIR) {
-#     $ADDONS_DIR = "$XPTR_DIR\Interface\AddOns"
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_DIR" -Force
-# }
+$ClassicAddons = $Addons.Clone()
+# $ClassicAddons["Tainted"] = "$GITHUB_DIR\Tainted_Classic"
+$ClassicAddons.Remove("combatlog")
 
-# $CLASSIC_DIR = "$WOW_DIR\_classic_"
-# if (Test-Path $CLASSIC_DIR) {
-#     $ADDONS_DIR = "$CLASSIC_DIR\Interface\AddOns"
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tukui" -Target "$TUKUI_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\LuaUI" -Target "$LUAUI_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_CLASSIC_DIR" -Force
-# }
+# --- Function to create links ---
+function Link-Addons {
+    param (
+        [string]$TargetDir,
+        [hashtable]$AddonMap
+    )
 
-# $CLASSIC_PTR_DIR = "$WOW_DIR\_classic_ptr_"
-# if (Test-Path $CLASSIC_PTR_DIR) {
-#     $ADDONS_DIR = "$CLASSIC_PTR_DIR\Interface\AddOns"
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Filger" -Target "$FILGER_DIR" -Force
-#     New-Item -ItemType SymbolicLink -Path "$ADDONS_DIR\Tainted" -Target "$TAINTED_DIR" -Force
-# }
+    if (-not (Test-Path $TargetDir)) {
+        Write-Host "ERROR: WoW directory not found: $TargetDir" -ForegroundColor Red
+        return
+    }
+
+    $addonsPath = "$TargetDir\Interface\AddOns"
+    if (-not (Test-Path $addonsPath)) {
+        New-Item -Path $addonsPath -ItemType Directory -Force | Out-Null
+        Write-Host "WARN: Created AddOns directory: $addonsPath" -ForegroundColor Yellow
+    }
+
+    foreach ($name in $AddonMap.Keys) {
+        $target = $AddonMap[$name]
+        if (-not (Test-Path $target)) {
+            Write-Host "ERROR: Skipped missing source: $target" -ForegroundColor Red
+            continue
+        }
+
+        $linkPath = Join-Path $addonsPath $name
+        try {
+            New-Item -ItemType SymbolicLink -Path $linkPath -Target $target -Force -ErrorAction Stop
+            Write-Host "Linked: $linkPath -> $target" -ForegroundColor Cyan
+        } catch {
+            Write-Host "ERROR: Failed to link: $linkPath -> $target" -ForegroundColor Red
+        }
+    }
+}
+
+# --- Execute for each WoW version ---
+Link-Addons "$WOW_DIR\_retail_" $Addons
+Link-Addons "$WOW_DIR\_classic_era_" $ClassicAddons
+
+# Optional:
+# Link-Addons "$WOW_DIR\_ptr_" $Addons
+# Link-Addons "$WOW_DIR\_xptr_" $Addons
+# Link-Addons "$WOW_DIR\_classic_" $ClassicAddons
+# Link-Addons "$WOW_DIR\_classic_ptr_" $Addons
