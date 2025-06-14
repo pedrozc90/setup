@@ -52,26 +52,92 @@ Roadmap of windows installation to get my computer ready for development
 
 ## Roadmaps
 
+### Setup Git
+
+```bash
+# setup identity
+git config --global user.name "pedrozc90"
+git config --global user.email "pedrozc90@gmail.com"
+
+# set visual studio code as detault
+git config --global core.editor "code --wait"
+
+# format CRLF to LF on commit
+git config --global core.autocrlf true
+
+# display all configurations
+git config --list
+```
+
+```bash
+# generate a new public key to configure github ssh
+ssh-keygen -t ed25519 -C "pedrozc90@gmail.com"
+```
+
 ### WSL
+
+> Enable Virtualization `BIOS` > `CPU Configurations` > Set `SVM Mode` to `Enabled`
+> On Windows `Control Panel` > `Programs` > `Turn Windows feature on or off` > Enable `Hyper-V` (Do you really need ???)
+
+### Microsoft Store
+
+-   Install `Debian` distro
+
+```powershell
+wsl --install Debian
+```
 
 #### Setup
 
 ```bash
+# check distro version
+cat /etc/os-release
+
 # update lsit of packages
 sudo apt update
 
 # upgrade system
-sudo apt upgrade
+sudo apt full-upgrade
 
-# download some packages
+# remove useless packages
+sudo apt autoremove
+sudo apt clean
+
+# check debian version
+cat /etc/debian_version
+
 sudo apt install -y \
-    git \
-    dos2unix \
-    python3-pip \
-    python3-venv
+    curl \
+    unzip \
+    dos2unix
 
-# install elixir
-sudo apt install -y elixir erlang-dev erlang-xmerl
+sudo apt install -y \
+    build-essential \
+    autoconf \
+    automake \
+    libncurses-dev \
+    libssl-dev \
+    libssh-dev \
+    libpng-dev \
+    unixodbc-dev \
+    xsltproc \
+    fop \
+    libxml2-utils
+```
+
+### Git
+
+```bash
+# download some packages
+sudo apt install -y git
+```
+
+```bash
+# git configuration
+git config --global user.name "pedrozc90"
+git config --global user.email "pedrozc90@gmail.com"
+git config --global core.autocrlf true
+git config --list
 ```
 
 #### Mise
@@ -87,11 +153,6 @@ curl https://mise.run | sh
 ```bash
 # activate mise
 echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-```
-
-```bash
-# install java 21
-mise install java@temurin-21.0.7+6.0.LTS
 ```
 
 ```bash
@@ -112,10 +173,25 @@ mise install elixir@1.18.4
 ```
 
 ```bash
-# setup globals
+# install and set globals
 mise use --global node@22
 mise use --global lua@5.4.7
 mise use --global java@temurin-21.0.7+6.0.LTS
+mise use --global rust@1.87.0
+mise use --global erlang@26
+mise use --global elixir@1.18.4
+mise use --global go@1.24
+```
+
+### Other
+
+```bash
+sudo apt install -y \
+    python3-pip \
+    python3-venv
+
+# install elixir
+sudo apt install -y elixir erlang-dev erlang-xmerl
 ```
 
 ## Utility
