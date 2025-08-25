@@ -23,12 +23,14 @@ $Addons = @{
     "Filger"       = "$GITHUB_DIR\Filger"
     # "Tukui\retail" = "$GITHUB_DIR\Tukui\Tukui"
     # "LuaUI"        = "$GITHUB_DIR\LuaUI"
-    # "combatlog"    = "$GITHUB_DIR\combatlogcp"
+    "SpellScribe"  = "$GITHUB_DIR\SpellScribe"
 }
+
+$ClassicEraAddons = $Addons.Clone()
+$ClassicEraAddons.Remove("SpellScribe")
 
 $ClassicAddons = $Addons.Clone()
 # $ClassicAddons["Tainted"] = "$GITHUB_DIR\Tainted_Classic"
-$ClassicAddons.Remove("combatlog")
 
 # --- Function to create links ---
 function Link-Addons {
@@ -65,9 +67,12 @@ function Link-Addons {
     }
 }
 
-# --- Execute for each WoW version ---
+# Execute for each WoW version
 Link-Addons "$WOW_DIR\_retail_" $Addons
-Link-Addons "$WOW_DIR\_classic_era_" $ClassicAddons
+Link-Addons "$WOW_DIR\_xptr_" $Addons # patch 11.2.0
+Link-Addons "$WOW_DIR\_classic_era_" $ClassicEraAddons  # Vanilla Classic
+Link-Addons "$WOW_DIR\_classic_" $ClassicAddons         # Cataclysm Classic
+Link-Addons "$WOW_DIR\_classic_ptr_" $ClassicAddons     # MoP Classic
 
 # Optional:
 # Link-Addons "$WOW_DIR\_ptr_" $Addons
